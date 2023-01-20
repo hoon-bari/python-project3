@@ -1,0 +1,12 @@
+{% extends "./base.html" %}
+{% block layout %}
+
+  <main>
+    {% include "./header.html" %}
+
+    {% block contents%}
+      여기부터 내용입니다.
+      {%endblock%}
+    </main>
+
+  {% endblock %}

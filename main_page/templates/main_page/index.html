@@ -1,0 +1,170 @@
+{% extends "./layout.html" %}
+{% block contents %}
+  <div class='main-content container my-5'>
+    <article class='content-article'>
+      <h3 class="tit_main">
+        <img src="https://t1.kakaocdn.net/kakaocorp/kakaocorp/admin/65636b49017800001.png?type=thumb&amp;opt=C72x72.fwebp" width="36" height="36" alt="" class="ico_cate">
+        <strong class="emph_tit">뉴스</strong>
+        <div class="txt_tit my-3">가장 빠른 뉴스 업데이트</div>
+      </h3>
+      <div class="wrap_tabs">
+        <button onclick="location.href='{% url 'main_page:create' %}'" class="btn btn-dark" style="float:right;">기사 작성</button>
+        <form action="" method="GET" class="d-flex" role="search_category">
+          <div class="btn-group">
+            <a href="{% url 'main_page:index' %}" class="btn btn-dark active" aria-current="page">전체</a>
+            <a href="?page={{post}}&search_category=정치&search_type={{search_type}}&search={{search}}" class="btn btn-light" value="정치" name="search_category">정치</a>
+            <a href="?page={{post}}&search_category=경제&search_type={{search_type}}&search={{search}}" class="btn btn-light" value="경제" name="search_category">경제</a>
+            <a href="?page={{post}}&search_category=IT/과학&search_type={{search_type}}&search={{search}}" class="btn btn-light" value="IT/과학" name="search_category">IT/과학</a>
+            <a href="?page={{post}}&search_category=연예&search_type={{search_type}}&search={{search}}" class="btn btn-light" value="연예" name="search_category">연예</a>
+            <a href="?page={{post}}&search_category=스포츠&search_type={{search_type}}&search={{search}}" class="btn btn-light" value="스포츠" name="search_category">스포츠</a>
+            <a href="?page={{post}}&search_category=기타&search_type={{search_type}}&search={{search}}" class="btn btn-light" value="기타" name="search_category">기타</a>
+          </div>
+        </form>
+      </div>
+      <div data-bs-spy="scroll" data-bs-target="#navbar-example2" data-bs-offset="0" class="scrollspy-example" tabindex="0">
+        <div class="list_card my-5">
+          <div class="row row-cols-3 row-cols-md-3 g-9">
+            {% for article in posts %}
+              <div class="col" onclick="location.href='{% url 'main_page:detail' article.id %}'">
+                <div class="card my-2">
+                  <div class="card-body">
+                    <h5 class="card-detail">
+                      <img src="https://t1.kakaocdn.net/kakaocorp/kakaocorp/admin/65636b49017800001.png?type=thumb&amp;opt=C72x72.fwebp" width="36" height="36" alt="" class="ico_cate" hspace="3">
+                      <button type="button" class="btn btn-outline-secondary btn-sm" style="font-weight : bold;">{{ article.news_date|date:"Y. m. d" }}</button>
+                    </h5>
+                    <h4 class="card-title">
+                      <strong>{{article.news_title|truncatechars:18}}</strong>
+                    </h4>
+                    <p class="card-text">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-tag-fill" viewbox="0 0 16 16">
+                        <path d="M2 1a1 1 0 0 0-1 1v4.586a1 1 0 0 0 .293.707l7 7a1 1 0 0 0 1.414 0l4.586-4.586a1 1 0 0 0 0-1.414l-7-7A1 1 0 0 0 6.586 1H2zm4 3.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>
+                      </svg>
+                      {{article.news_type}}
+                      &nbsp;
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chat-heart-fill" viewbox="0 0 16 16">
+                        <path d="M8 15c4.418 0 8-3.134 8-7s-3.582-7-8-7-8 3.134-8 7c0 1.76.743 3.37 1.97 4.6-.097 1.016-.417 2.13-.771 2.966-.079.186.074.394.273.362 2.256-.37 3.597-.938 4.18-1.234A9.06 9.06 0 0 0 8 15Zm0-9.007c1.664-1.711 5.825 1.283 0 5.132-5.825-3.85-1.664-6.843 0-5.132Z"/>
+                      </svg>
+                      {{article.news_like}}
+                    </p>
+                  </div>
+                  <img src={{article.news_img}} alt="" class="thumb_img">
+                </div>
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+        <ul class="pagination my-5">
+          {% if posts.has_previous %}
+            <li class="page-item">
+              <a class="page-link" href="?page={{posts.previous_page_number}}&search_category={{search_category}}&search_type={{search_type}}&search={{search}}" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+              </a>
+            </li>
+          {% endif %}
+          {% for post in posts.paginator.page_range %}
+            {% if post >= posts.number|add:-2 and post <= posts.number|add:2 %}
+              {% if post == posts.number %}
+                <li class="page-item active" aria-current="page">
+                  <a class="page-link" href="?page={{post}}&search_category={{search_category}}&search_type={{search_type}}&search={{search}}">{{post}}</a>
+                </li>
+              {% else %}
+                <li class="page-item">
+                  <a class="page-link" href="?page={{post}}&search_category={{search_category}}&search_type={{search_type}}&search={{search}}">{{post}}</a>
+                </li>
+              {% endif %}
+            {% endif %}
+          {% endfor %}
+          {% if posts.has_next %}
+          <li class="page-item">
+            <a class="page-link" href="?page={{posts.paginator.num_pages}}&search_category={{search_category}}&search_type={{search_type}}&search={{search}}">{{posts.paginator.num_pages}}</a>
+          </li>
+            <li class="page-item">
+              <a class="page-link" href="?page={{posts.next_page_number}}" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+              </a>
+            </li>
+          {% endif %}
+        </ul>
+        <section class="section_wordcloud">
+          <h4 class="tit_sub">오늘의 워드클라우드</h4>
+            <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+             <script src="https://golangkorea.github.io/js/jqcloud/jqcloud.min.js"></script>
+              <div style="width:100%; min-height:400px" id="wordcloud"></div>
+              <script>
+                $.ajax({
+                  type: 'GET',
+                  url: 'http://127.0.0.1:8000/api/wordcloud',
+                  async: true,
+                  header : {
+                  "Content-Type": "application/json"
+                  },
+                  datatype : 'json',
+                  data : JSON.stringify({
+                  "name" : name
+                  }),
+                  success : function(result) {
+                      $('#wordcloud').jQCloud(result, {
+                        autoResize: true
+                      })
+                  },
+                  error : function(request, status, error) {
+                    console.log(error)
+                  }
+                })
+              </script>
+        </section>
+        <div class='my-5' style="display:flex; justify-content:center; margin-left:10; margin-right:10;">
+          <div>
+            <div class='my-2'>
+              &nbsp;찾으시는 키워드가 없으신가요? 직접 데이터를 수집해보세요!
+            </div>
+            <div>
+            {% comment %} <form action="" method="GET"> {% endcomment %}
+              {%csrf_token%}
+              <div class="input-group">
+                <input type="text" id="search-kwd" value="{{keyword}}" class="form-control" placeholder="검색어 입력">
+                <button class="btn btn-outline-secondary" type="button" onclick="javascript:searchKwd()" >검색</button>
+              </div>
+            {% comment %} </form>  {% endcomment %}
+            </div>
+            <script>
+              function searchKwd(){
+                const searchStr = document.getElementById('search-kwd').value;
+                $.ajax({
+                  type: 'GET',
+                  url: `http://127.0.0.1:8000/api/crawling?q=${searchStr}`,
+                  header : {
+                    "Content-Type": "application/json"
+                  },
+                  success : function(result) {
+                      console.log(result)
+                  },
+                  error : function(request, status, error) {
+                    console.log(error)
+                  }
+                })
+              }
+            </script>
+            <div class="form-text my-2">
+              <small>&nbsp;&nbsp;(너무 무리해서 수집하지는 말아주세요. DB가 아파요.) <img src="https://i.pinimg.com/originals/b3/e0/41/b3e0416359b78aa568fa51a2c06b916b.gif" width="30" height="30"></small></div>
+          </div>
+        </div>
+        <div>
+          {% comment %} <h2>검색중입니다...&nbsp;&nbsp;&nbsp;
+            <div class="spinner-grow text-danger" role="status">
+              <span class="visually-hidden">Loading...</span>
+            </div>
+            <div class="spinner-grow text-warning" role="status">
+              <span class="visually-hidden">Loading...</span>
+            </div>
+            <div class="spinner-grow text-success" role="status">
+              <span class="visually-hidden">Loading...</span>
+          </h2>   {% endcomment %}
+          </div>
+        </div>  
+        </div>
+      </div>
+    </div>
+  </article>
+</div>
+{% endblock %}

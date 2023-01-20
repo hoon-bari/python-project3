@@ -1,0 +1,208 @@
+{% extends "./layout.html" %}
+{% block contents %}
+  <!DOCTYPE html>
+  <html lang="en">
+    <style>
+      @font-face {
+        font-family: 'Chosunilbo_myungjo';
+        src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/Chosunilbo_myungjo.woff") format('woff');
+        font-weight: normal;
+        font-style: normal;
+      }
+
+      div.news_cont {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      div.news_cont > p {
+        background-color: #f5f5f5;
+        font-family: 'Chosunilbo_myungjo';
+        font-size: 1.25em;
+        line-height: 1.6;
+      }
+
+      body {
+        background-color: #f5f5f5;
+      }
+
+      .container .doc_time {
+        text-align: center;
+        margin-top: 120px;
+        font-size: 18px;
+      }
+
+      .container .area_title h3 {
+        display: block;
+        margin-top: 30px;
+        text-align: center;
+        font-size: 46px;
+        line-height: 1.3;
+        letter-spacing: -1px;
+      }
+
+      img.news_img {
+        display: block;
+        margin: 0 auto;
+        width: auto;
+        height: auto;
+      }
+
+      .container .linklist a {
+        display: block;
+        width: 180px;
+        margin: 230px auto 0;
+        padding: 13px 24px 19px;
+        border-radius: 30px;
+        background: grey;
+        font-size: 18px;
+        font-weight: 700;
+        line-height: 28px;
+        color: black;
+        text-align: center;
+        box-sizing: border-box;
+        text-decoration: none;
+      }
+
+      div > span {
+        font-size: 1.5em;
+      }
+
+      img {
+      max-width: 100%;
+      width: auto !important;
+      height: auto: !important;
+      }
+
+    </style>
+
+    <body>
+      <div class="container">
+        <div class="area_title">
+          <div class="wrap_subinfo my-5 " style="text-align:center;">
+            <span>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-tag-fill" viewbox="0 0 16 16">
+                <path d="M2 1a1 1 0 0 0-1 1v4.586a1 1 0 0 0 .293.707l7 7a1 1 0 0 0 1.414 0l4.586-4.586a1 1 0 0 0 0-1.414l-7-7A1 1 0 0 0 6.586 1H2zm4 3.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>
+              </svg>
+              &nbsp;{{article.news_type}}
+            </span>
+            <span>&nbsp;|&nbsp;
+              {{article.news_date}}</span>
+          </div>
+          <div>
+            <h3 class="news_title">{{article.news_title}}</h3>
+          </div>
+        </div>
+        <div class="news_picture">
+          <img class="news_img my-5" src="{{article.news_img}}">
+        </div>
+        <div class="container">
+          <div class="area_cont">
+            <div class="news_cont my-5">
+              <p>
+                {{article.news_content}}</br>
+              </p>
+            </div>
+          </div>
+          <div class="mb-3 p-3">
+          <div style="float:right">
+            <a class="btn btn-outline-success" href="{% url 'main_page:edit' article.id %}" role="button">수정하기</a>
+            <a class="btn btn-danger" href="{% url 'main_page:delete' article.id %}" role="button">삭제하기</a>
+            <a class="btn btn-dark" href="{% url 'main_page:index' %}" role="button">돌아가기</a>
+          </div>
+          </div>
+        </div>
+        <section class="my-5">
+          <div class="card bg-light">
+            <div class="card-body">
+              <div style="float:right;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chat-heart-fill" viewbox="0 0 16 16">
+                  <path d="M8 15c4.418 0 8-3.134 8-7s-3.582-7-8-7-8 3.134-8 7c0 1.76.743 3.37 1.97 4.6-.097 1.016-.417 2.13-.771 2.966-.079.186.074.394.273.362 2.256-.37 3.597-.938 4.18-1.234A9.06 9.06 0 0 0 8 15Zm0-9.007c1.664-1.711 5.825 1.283 0 5.132-5.825-3.85-1.664-6.843 0-5.132Z"/>
+                </svg>
+                       {{article.news_like}} &nbsp;
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chat-square-text" viewBox="0 0 16 16">
+                <path d="M14 1a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1h-2.5a2 2 0 0 0-1.6.8L8 14.333 6.1 11.8a2 2 0 0 0-1.6-.8H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2.5a1 1 0 0 1 .8.4l1.9 2.533a1 1 0 0 0 1.6 0l1.9-2.533a1 1 0 0 1 .8-.4H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
+                <path d="M3 3.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zM3 6a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9A.5.5 0 0 1 3 6zm0 2.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5z"/>
+              </svg> {{comments.count}} &nbsp;
+              </div>
+              <!-- Comment form-->
+              <form action="{% url 'main_page:comment' article.id %}" method="POST" class="mb-4">
+                <div class="input-group mb-1" style="width:20%">
+                  {% csrf_token %}
+                  &nbsp;<span class="input-group-text" id="basic-addon1">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-emoji-wink" viewbox="0 0 16 16">
+                      <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                      <path d="M4.285 9.567a.5.5 0 0 1 .683.183A3.498 3.498 0 0 0 8 11.5a3.498 3.498 0 0 0 3.032-1.75.5.5 0 1 1 .866.5A4.498 4.498 0 0 1 8 12.5a4.498 4.498 0 0 1-3.898-2.25.5.5 0 0 1 .183-.683zM7 6.5C7 7.328 6.552 8 6 8s-1-.672-1-1.5S5.448 5 6 5s1 .672 1 1.5zm1.757-.437a.5.5 0 0 1 .68.194.934.934 0 0 0 .813.493c.339 0 .645-.19.813-.493a.5.5 0 1 1 .874.486A1.934 1.934 0 0 1 10.25 7.75c-.73 0-1.356-.412-1.687-1.007a.5.5 0 0 1 .194-.68z"/>
+                    </svg>
+                  </span>
+                  <input type='hidden' class="form-control" name='article' id='article'>
+                  <input type="text" class="form-control" name='username' id='username' placeholder="아이디"></div>
+                  <div class="input-group mb-3">
+                  &nbsp;<textarea class="form-control" style="resize:none;" name='comment_content' id='comment_content' rows="3" placeholder="댓글을 남겨보세요."></textarea>
+                  <button type="submit" class="btn btn-outline-success">작성</button>
+                </div>
+              </form>
+              <col>
+                {% for comment in posts %}
+                  <div class="d-flex mb-4" style="justify-content:space-between; align-items:end;">
+                    <div style="display:flex; justify-content:flex-start;">
+                      <div>
+                        <img class="rounded-circle" src="https://e7.pngegg.com/pngimages/588/555/png-clipart-speech-balloon-speechbubble-comics-angle-thumbnail.png" width="20" height="20"/>
+                      </div>
+                          <div class="ms-2">
+                            <div class="flex fw-bold my-1">{{comment.username}}
+                              <small class="fw-light">&nbsp;&nbsp;&nbsp;{{comment.created_at}}</small>
+                            </div>
+                            {{comment.comment_content|truncatechars:80}}
+                          </div>
+                      </div>
+                        <div style="display:flex; justify-content:flex-end; float:right;">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16">
+                          <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"/>
+                        </svg>&nbsp;{{comment.comment_like}}&nbsp;&nbsp;&nbsp;<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heartbreak" viewBox="0 0 16 16">
+                          <path d="M8.867 14.41c13.308-9.322 4.79-16.563.064-13.824L7 3l1.5 4-2 3L8 15a38.094 38.094 0 0 0 .867-.59Zm-.303-1.01-.971-3.237 1.74-2.608a1 1 0 0 0 .103-.906l-1.3-3.468 1.45-1.813c1.861-.948 4.446.002 5.197 2.11.691 1.94-.055 5.521-6.219 9.922Zm-1.25 1.137a36.027 36.027 0 0 1-1.522-1.116C-5.077 4.97 1.842-1.472 6.454.293c.314.12.618.279.904.477L5.5 3 7 7l-1.5 3 1.815 4.537Zm-2.3-3.06-.442-1.106a1 1 0 0 1 .034-.818l1.305-2.61L4.564 3.35a1 1 0 0 1 .168-.991l1.032-1.24c-1.688-.449-3.7.398-4.456 2.128-.711 1.627-.413 4.55 3.706 8.229Z"/>
+                        </svg>&nbsp;{{comment.comment_dislike}}
+                    </div>
+                  </div>
+                {% endfor %}
+              </col>
+            </div>
+          </div>
+        </section>
+        <ul class="pagination my-5">
+          {% if posts.has_previous %}
+            <li class="page-item">
+              <a class="page-link" href="?page={{posts.previous_page_number}}" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+              </a>
+            </li>
+          {% endif %}
+          {% for post in posts.paginator.page_range %}
+            {% if post >= posts.number|add:-2 and post <= posts.number|add:2 %}
+              {% if post == posts.number %}
+                <li class="page-item active" aria-current="page">
+                  <a class="page-link" href="?page={{post}}">{{post}}</a>
+                </li>
+              {% else %}
+                <li class="page-item">
+                  <a class="page-link" href="?page={{post}}">{{post}}</a>
+                </li>
+              {% endif %}
+            {% endif %}
+          {% endfor %}
+          {% if posts.has_next %}
+            <li class="page-item">
+              <a class="page-link" href="?page={{posts.paginator.num_pages}}">{{posts.paginator.num_pages}}</a>
+            </li>
+            <li class="page-item">
+              <a class="page-link" href="?page={{posts.next_page_number}}" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+              </a>
+            </li>
+          {% endif %}
+        </ul>
+      </div>
+    </body>
+  </html>
+{% endblock %}

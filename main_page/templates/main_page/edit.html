@@ -1,0 +1,57 @@
+{% extends "./layout.html" %}
+{% block contents %}
+<div class="container">
+ <div class="mt-5 contents-wrap">
+  <h3 class="nav-loc">
+   기사를 자유롭게 수정해보세요.
+  </h3>
+
+  <div class="container">
+   <div class="contents">
+    <form action="" method="POST">
+     {% csrf_token %}
+        <div class="main_page-news_type p-3 mb-3">
+              <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value='정치' name="news_type">
+              <label class="form-check-label" for="inlineCheckbox1">&nbsp;정치&nbsp;</label>
+
+              <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value='경제' name="news_type">
+              <label class="form-check-label" for="inlineCheckbox2">&nbsp;경제&nbsp;</label>
+
+              <input class="form-check-input" type="checkbox" id="inlineCheckbox3" value='IT/과학' name="news_type">
+              <label class="form-check-label" for="inlineCheckbox3">&nbsp;IT/과학&nbsp;</label>
+
+              <input class="form-check-input" type="checkbox" id="inlineCheckbox4" value='연예' name="news_type">
+              <label class="form-check-label" for="inlineCheckbox1">&nbsp;TV연예&nbsp;</label>
+
+              <input class="form-check-input" type="checkbox" id="inlineCheckbox5" value='스포츠' name="news_type">
+              <label class="form-check-label" for="inlineCheckbox2">&nbsp;스포츠&nbsp;</label>
+
+              <input class="form-check-input" type="checkbox" id="inlineCheckbox6" value='기타' name="news_type">
+              <label class="form-check-label" for="inlineCheckbox3">&nbsp;기타&nbsp;</label>
+        </div>
+        <div class="main_page-news_title p-3 mb-3">
+            <label class="form-label">기사 제목</label>
+            {{form.news_title}}
+            <div id="news_title-help" class="form-text">자유롭게 수정하시면 됩니다.</div>
+        </div>
+        <div class="main_page-news_img p-3 mb-3">
+            <label class="form-label">기사 사진</label>
+            {{form.news_img}}
+            <div id="news_img-help" class="form-text">사진 추가도 가능합니다.</div>
+        </div>
+        <div class="main_page-news_content p-3 mb-3">
+            <label  class="form-label">기사 내용</label>
+            {{form.news_content}}<br>
+            <div id="news_content-help" class="form-text">내용은 제목에 따라 자유롭게 수정해주세요.</div>
+        </div>
+        <div class="mb-3 p-3">
+            <div style="float:right">
+            <button type="submit" class="btn btn-dark">수정</button>
+            <a class="btn btn-dark" href="{% url 'main_page:index' %}" role="button">목록으로</a>
+            </div>
+        </div>
+    </form>
+   </div>
+ </div>
+</div>
+{% endblock %}

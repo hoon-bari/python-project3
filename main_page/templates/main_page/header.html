@@ -1,0 +1,36 @@
+<header>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light container">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="{% url 'main_page:index' %}">
+      <img src="https://mblogthumb-phinf.pstatic.net/MjAyMDExMThfMjk3/MDAxNjA1NjYzOTYxMjI1.qkKm2eUxxXSi8xYrd9wdP-2AiTMMr6ISVhEJ9AXGvBUg.7FAJSm1idLY4SAiIoD79UMg87R38mKRnOAQTmNmeuoUg.GIF.nagne7272/giphy%EF%BC%8D20.gif?type=w800" alt="Bootstrap" width="30" height="24">
+      &nbsp;오늘의 뉴스
+      </a>
+      <form action = "" method = "GET" class="d-flex" role="search">
+        <div class="dropdown">
+          <a class="btn btn-secondary dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            검색 조건
+          </a>
+          <ul class="dropdown-menu" style="justify-content=center;">
+            <li>
+              <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value='all' name="search_type">
+              <label class="form-check-label" for="inlineCheckbox1">제목+내용</label>
+            </li>
+            <li>
+              <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value='title' name="search_type">
+              <label class="form-check-label" for="inlineCheckbox2">제목</label>
+            </li>
+            <li>
+              <input class="form-check-input" type="checkbox" id="inlineCheckbox3" value='content' name="search_type">
+              <label class="form-check-label" for="inlineCheckbox3">내용</label>
+            </li>
+          </ul>
+        </div>
+          <div class="input-group">
+            <input type="text" class="form-control" placeholder="키워드를 검색해주세요" name="search" value="{{search}}" aria-label="Search">
+            <button class="btn btn-dark" type="submit" id="button-addon2">검색</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </nav>
+</header>
